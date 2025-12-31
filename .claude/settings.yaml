@@ -1,0 +1,5 @@
+# Claude Code Project Settings
+
+# Project context for plan management
+context:
+  plans_directory: .claude/plans
