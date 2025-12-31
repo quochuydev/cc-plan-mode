@@ -1,0 +1,10 @@
+{
+  "name": "plan-mode",
+  "description": "Plan-based development workflow for Claude Code. Create, track, and execute implementation plans with YAML frontmatter todos and progress tracking.",
+  "version": "1.0.0",
+  "author": {
+    "name": "quochuydev"
+  },
+  "repository": "https://github.com/quochuydev/x-plan-mode",
+  "license": "MIT"
+}

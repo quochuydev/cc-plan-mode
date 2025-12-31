@@ -78,7 +78,7 @@ Next up: {next_pending_todo_content}
 ## Example
 
 ```
-> /plan-update image_resolution a1b2c3d4 resize-module completed
+> /plan-update image_resolution resize-module completed
 
 Updated plan: Image Resolution Resizing
 - resize-module: pending -> completed

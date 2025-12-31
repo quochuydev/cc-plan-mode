@@ -1,158 +1,123 @@
-# claude-plan-mode
+# plan-mode
 
-Plan-based development workflow for Claude Code. Create, track, and execute implementation plans with YAML frontmatter todos and progress tracking.
-
-## Features
-
-- **Structured Plans** - YAML frontmatter with todos, dependencies, and status tracking
-- **Progress Tracking** - Visual progress bars and completion percentages
-- **Dependency Resolution** - Tasks respect dependencies before starting
-- **Slash Commands** - `/plan`, `/plan-execute`, `/plan-update`, `/plan-list`
+Plan-based development workflow plugin for Claude Code.
 
 ## Installation
 
-Copy the `.claude` folder to your project root:
+Add the marketplace and install:
 
 ```bash
-cp -r .claude /path/to/your/project/
+/plugin marketplace add quochuydev/x-plan-mode
+/plugin install plan-mode@x-plan-mode
 ```
 
-Or clone and copy:
+Or test locally:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-plan-mode.git
-cp -r claude-plan-mode/.claude /path/to/your/project/
+claude --plugin-dir /path/to/x-plan-mode
 ```
 
-## Usage
+## Getting Started
 
-### Create a Plan
+1. **Create a plan**
+   ```
+   /plan user authentication
+   ```
 
-```
-/plan add user authentication with JWT
-```
+2. **View plans**
+   ```
+   /plan
+   ```
 
-Creates `.claude/plans/user_authentication_a1b2c3d4.plan.md` with structured todos.
+3. **Execute tasks**
+   ```
+   /plan-execute user_authentication
+   ```
 
-### List Plans
+4. **Update progress**
+   ```
+   /plan-update user_authentication task-id completed
+   ```
 
-```
-/plan
-```
+## Command Flow
 
-Shows all plans with progress:
+```mermaid
+flowchart TD
+    A["/plan feature"] --> B[Creates plan file]
+    B --> C[".claude/plans/*.plan.md"]
 
-```
-# Implementation Plans
+    D["/plan"] --> E[List all plans with progress]
 
-1. **User Authentication** (2/5 completed)
-   Add JWT-based auth with login/logout
-   [==--------] 40%
+    F["/plan-execute name"] --> G[Find next task]
+    G --> H[Execute task]
+    H --> I[Update status]
+    I --> J{More tasks?}
+    J -->|Yes| G
+    J -->|No| K[Done]
 
-2. **API Refactor** (8/8 completed)
-   Restructure API endpoints
-   [==========] 100%
-```
-
-### Execute Next Task
-
-```
-/plan-execute user_authentication
-```
-
-Finds the next pending task, executes it, and updates the plan file.
-
-### Update Status Manually
-
-```
-/plan-update user_authentication auth-middleware completed
+    L["/plan-update name id status"] --> M[Manual update]
 ```
 
-Or complete current task and start next:
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/plan` | List all plans |
+| `/plan <desc>` | Create new plan |
+| `/plan-execute <name>` | Execute next task |
+| `/plan-update <name> [id] [status]` | Update status |
+
+## Where Plans Are Stored
+
+Plans are stored in **your project**, not the plugin:
 
 ```
-/plan-update user_authentication
+your-project/
+├── .claude/
+│   └── plans/           # Your plans go here
+│       └── *.plan.md
+└── src/
 ```
 
 ## Plan Format
 
-Plans use YAML frontmatter with markdown body:
-
 ```yaml
 ---
-name: User Authentication
-overview: Implement JWT-based authentication with login/logout endpoints.
+name: Feature Name
+overview: Brief description
 todos:
-  - id: auth-middleware
-    content: Create authentication middleware
+  - id: task-1
+    content: First task
     status: pending
-  - id: jwt-utils
-    content: Implement JWT sign/verify utilities
-    status: pending
-    dependencies:
-      - auth-middleware
-  - id: login-endpoint
-    content: Add POST /api/auth/login endpoint
+  - id: task-2
+    content: Second task
     status: pending
     dependencies:
-      - jwt-utils
+      - task-1
 ---
 
-# User Authentication
+# Feature Name
 
-## Overview
-Implement JWT-based authentication...
-
-## Implementation Details
-...
+Implementation details...
 ```
 
-### Todo Statuses
-
-| Status | Description |
-|--------|-------------|
-| `pending` | Not started |
-| `in_progress` | Currently working on |
-| `completed` | Done |
-| `cancelled` | No longer needed |
-
-### Dependencies
-
-Tasks with `dependencies` won't start until all listed task IDs are `completed`.
-
-## File Structure
+## Plugin Structure
 
 ```
-.claude/
+x-plan-mode/
+├── .claude-plugin/
+│   ├── marketplace.json # Marketplace definition
+│   └── plugin.json      # Plugin manifest
 ├── commands/
-│   ├── plan.md           # /plan command
-│   ├── plan-execute.md   # /plan-execute command
-│   └── plan-update.md    # /plan-update command
-├── plans/                # Your plan files go here
-│   └── *.plan.md
-├── settings.yaml         # Configuration
+│   ├── plan.md
+│   ├── plan-execute.md
+│   └── plan-update.md
 └── skills/
-    ├── plan.md           # Plan creation logic
-    ├── plan-execute.md   # Execution logic
-    ├── plan-list.md      # List/progress logic
-    └── plan-update.md    # Status update logic
+    ├── plan.md
+    ├── plan-execute.md
+    ├── plan-list.md
+    └── plan-update.md
 ```
-
-## Configuration
-
-Edit `.claude/settings.yaml`:
-
-```yaml
-context:
-  plans_directory: .claude/plans
-```
-
-## Tips
-
-- Use short, descriptive `id` values (e.g., `auth-middleware`, `setup-db`)
-- Add `dependencies` to enforce task order
-- Include file paths and code examples in the plan markdown body
-- Run `/plan-execute <name> --all` to execute all remaining tasks sequentially
 
 ## License
 

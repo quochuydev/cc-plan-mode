@@ -5,7 +5,7 @@ Create or list implementation plans.
 ## Usage
 
 - `/plan` - List all existing plans with progress
-- `/plan <task description>` - Create a new plan for the given task
+- `/plan <description>` - Create a new plan for the given task
 
 ## When creating a plan:
 

@@ -1,0 +1,10 @@
+{
+  "name": "x-plan-mode",
+  "plugins": [
+    {
+      "name": "plan-mode",
+      "source": ".",
+      "description": "Plan-based development workflow. Create, track, and execute implementation plans."
+    }
+  ]
+}

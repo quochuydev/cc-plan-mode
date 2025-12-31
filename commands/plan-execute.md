@@ -5,7 +5,8 @@ Execute tasks from a plan file, updating status as you go.
 ## Usage
 
 - `/plan-execute <plan-name>` - Execute the next pending task
-- `/plan-execute <plan-name> --all` - Execute all remaining tasks
+- `/plan-execute <plan-name> --all` - Execute all remaining tasks sequentially
+- `/plan-execute <plan-name> --parallel` - Execute independent tasks in parallel
 
 ## Execution Steps
 

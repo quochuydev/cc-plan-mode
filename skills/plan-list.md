@@ -1,11 +1,11 @@
 ---
 name: plan-list
-description: List all implementation plans and their progress. Usage: `/plan-list` or `/plans`
+description: List all implementation plans and their progress. Invoked by `/plan` without arguments.
 ---
 
 # Plan List Skill
 
-Display all plans in `.claude/plans/` with their completion status.
+Display all plans in `.claude/plans/` with their completion status. This skill is invoked when running `/plan` without a task description.
 
 ## Instructions
 

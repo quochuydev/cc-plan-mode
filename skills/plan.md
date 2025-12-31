@@ -9,7 +9,7 @@ Create structured implementation plans with YAML frontmatter, todos tracking, an
 
 ## Plan Storage
 
-Plans are stored in `.claude/plans/` directory. Each plan file uses the format: `{slug}_{hash}.plan.md`
+Plans are stored in `.claude/plans/` directory in the user's project. Each plan file uses the format: `{slug}_{hash}.plan.md`
 
 ## Plan Format
 
@@ -44,7 +44,8 @@ Detailed description...
 2. **Explore the codebase** - Use Glob, Grep, Read to understand existing patterns
 3. **Break down into todos** - Create specific, actionable tasks with unique IDs
 4. **Document the approach** - Write detailed implementation notes
-5. **Save the plan** - Write to `.claude/plans/{slug}_{8char_hash}.plan.md`
+5. **Create plans directory** - Ensure `.claude/plans/` exists in user's project
+6. **Save the plan** - Write to `.claude/plans/{slug}_{8char_hash}.plan.md`
 
 ### Plan file naming:
 - Convert plan name to lowercase slug (spaces to underscores)
@@ -70,14 +71,14 @@ When creating a plan, produce output like:
 name: Add User Authentication
 overview: Implement JWT-based authentication with login/logout endpoints and protected routes middleware.
 todos:
-  - id: auth-middleware
-    content: Create authentication middleware in src/middleware/auth.ts
-    status: pending
   - id: jwt-utils
     content: Implement JWT sign/verify utilities in src/lib/jwt.ts
     status: pending
+  - id: auth-middleware
+    content: Create authentication middleware in src/middleware/auth.ts
+    status: pending
     dependencies:
-      - auth-middleware
+      - jwt-utils
   - id: login-endpoint
     content: Add POST /api/auth/login endpoint
     status: pending
