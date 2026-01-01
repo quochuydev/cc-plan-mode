@@ -7,14 +7,14 @@ Plan-based development workflow plugin for Claude Code.
 Add the marketplace and install:
 
 ```bash
-/plugin marketplace add quochuydev/x-plan-mode
-/plugin install plan-mode@x-plan-mode
+/plugin marketplace add quochuydev/cc-plan-mode
+/plugin install plan-mode@cc-plan-mode
 ```
 
 Or test locally:
 
 ```bash
-claude --plugin-dir /path/to/x-plan-mode
+claude --plugin-dir /path/to/cc-plan-mode
 ```
 
 ## Getting Started
@@ -22,11 +22,13 @@ claude --plugin-dir /path/to/x-plan-mode
 ### Example: Building a REST API with Authentication
 
 1. **Create a plan for your feature**
+
    ```
    /plan implement JWT authentication with refresh tokens for the Express API
    ```
 
    This generates `.claude/plans/jwt_authentication.plan.md`:
+
    ```yaml
    ---
    name: JWT Authentication
@@ -59,10 +61,13 @@ claude --plugin-dir /path/to/x-plan-mode
    ```
 
 2. **View all plans and progress**
+
    ```
    /plan
    ```
+
    Output:
+
    ```
    Plans:
    ├── jwt_authentication (0/6 tasks) - JWT auth with refresh tokens
@@ -70,9 +75,11 @@ claude --plugin-dir /path/to/x-plan-mode
    ```
 
 3. **Execute tasks automatically**
+
    ```
    /plan-execute jwt_authentication
    ```
+
    Claude will find the next available task (respecting dependencies), implement it, and mark it complete.
 
 4. **Manually update task status**
@@ -102,12 +109,12 @@ flowchart TD
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `/plan` | List all plans |
-| `/plan <desc>` | Create new plan |
-| `/plan-execute <name>` | Execute next task |
-| `/plan-update <name> [id] [status]` | Update status |
+| Command                             | Description       |
+| ----------------------------------- | ----------------- |
+| `/plan`                             | List all plans    |
+| `/plan <desc>`                      | Create new plan   |
+| `/plan-execute <name>`              | Execute next task |
+| `/plan-update <name> [id] [status]` | Update status     |
 
 ## Where Plans Are Stored
 
@@ -137,7 +144,6 @@ todos:
     dependencies:
       - task-1
 ---
-
 # Feature Name
 
 Implementation details...
@@ -146,7 +152,7 @@ Implementation details...
 ## Plugin Structure
 
 ```
-x-plan-mode/
+cc-plan-mode/
 ├── .claude-plugin/
 │   ├── marketplace.json # Marketplace definition
 │   └── plugin.json      # Plugin manifest
